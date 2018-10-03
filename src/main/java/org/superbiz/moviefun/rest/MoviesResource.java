@@ -16,7 +16,6 @@
  */
 package org.superbiz.moviefun.rest;
 
-import org.superbiz.moviefun.Comment;
 import org.superbiz.moviefun.Movie;
 import org.superbiz.moviefun.MoviesBean;
 
@@ -24,7 +23,6 @@ import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -39,8 +37,6 @@ public class MoviesResource {
     private MoviesBean service;
 
 
-
-
     @GET
     @Path("{id}")
     public Movie find(@PathParam("id") Long id) {
@@ -48,12 +44,9 @@ public class MoviesResource {
         return service.find(id);
     }
 
-
-
     @GET
-    public List<Movie> getMovies(@QueryParam("first") Integer first, @QueryParam("max") Integer max,
-                                 @QueryParam("field") String field, @QueryParam("searchTerm") String searchTerm) {
-        return service.getMovies(first, max, field, searchTerm);
+    public List<Movie> getMovies() {
+        return service.getMovies();
     }
 
     @POST
@@ -63,41 +56,25 @@ public class MoviesResource {
         return movie;
     }
 
-    @POST
-    @Path("{id}/comment")
-    @Consumes("text/plain")
-    public Movie addCommentToMovie(
-            @PathParam("id") final long id,
-            final String comment) {
-
-            final Comment c = new Comment();
-             c.setComment(comment);
-             c.setTimestamp(new Date());
-
-        return service.addCommentToMovie(id, c);
-    }
-
-    @PUT
-    @Path("{id}")
-    @Consumes("application/json")
-    public Movie editMovie(
-            @PathParam("id") final long id,
-            Movie movie) {
-        service.editMovie(movie);
-        return movie;
-    }
-
     @DELETE
     @Path("{id}")
     public void deleteMovie(@PathParam("id") long id) {
         service.deleteMovie(id);
     }
 
+    @PUT
+    @Path("{id}")
+    public Movie updateMovie(@PathParam("id") long id, Movie movie) {
+        service.updateMovie(id,movie);
+        return service.find(id);
+    }
+
+
     @GET
     @Path("count")
     @Produces(MediaType.TEXT_PLAIN)
     public int count(@QueryParam("field") String field, @QueryParam("searchTerm") String searchTerm) {
-        return service.count(field, searchTerm);
+        return service.count();
     }
 
 }
