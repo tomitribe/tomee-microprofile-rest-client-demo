@@ -34,20 +34,6 @@
 
       <property name="dir">target/server</property>
       <property name="appWorkingDir">target/arquillian</property>
-      <property name="properties">
-        fooDS = new://Resource?type=DataSource
-        fooDS.JdbcDriver = org.hsqldb.jdbcDriver
-        fooDS.JdbcUrl = jdbc:hsqldb:mem:moviefun
-        fooDS.UserName = sa
-        fooDS.Password =
-        fooDS.JtaManaged = true
-        fooDS.LogSql = true
-      </property>
-      <property name="debug">false</property>
     </configuration>
   </container>
-
-  <extension qualifier="persistence">
-    <property name="defaultDataSource">openejb:Resource/fooDS</property>
-  </extension>
 </arquillian>

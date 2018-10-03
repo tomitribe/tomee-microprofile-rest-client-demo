@@ -14,9 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.superbiz.moviefun;
+package org.superbiz.moviefun.service;
 
 import com.github.javafaker.Faker;
+import org.superbiz.moviefun.movie.Movie;
 
 import javax.ejb.Lock;
 import javax.ejb.LockType;
@@ -28,7 +29,7 @@ import java.util.Random;
 
 @Singleton
 @Lock(LockType.READ)
-public class MoviesBean {
+public class MoviesService {
 
 
     public List<Movie> catalog;
@@ -39,7 +40,7 @@ public class MoviesBean {
         return catalog;
     }
 
-    public MoviesBean() {
+    public MoviesService() {
         catalog = new ArrayList();
         load();
 

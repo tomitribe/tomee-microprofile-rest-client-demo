@@ -22,13 +22,14 @@ import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.ClassLoaderAsset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.superbiz.moviefun.movie.Movie;
 import org.superbiz.moviefun.rest.ApplicationConfig;
 import org.superbiz.moviefun.rest.MoviesResource;
+import org.superbiz.moviefun.service.MoviesService;
 
 import javax.ws.rs.core.Response;
 import java.io.ByteArrayOutputStream;
@@ -45,7 +46,7 @@ public class MoviesTest {
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         final WebArchive webArchive = ShrinkWrap.create(WebArchive.class, "test.war")
-                .addClasses(Movie.class,  MoviesBean.class)
+                .addClasses(Movie.class,  MoviesService.class)
                 .addClasses(MoviesResource.class, ApplicationConfig.class)
                 .addAsWebInfResource(new StringAsset("<beans/>"), "beans.xml");
 
@@ -67,13 +68,15 @@ public class MoviesTest {
 
         final WebClient webClient = WebClient.create(base.toExternalForm());
 
-
-        //This Works fine
-        final Response response = webClient.path("/api/movies/count").get();
+        Response response = null;
+        response = webClient.path("/api/movies/count").get();
         assertEquals(200, response.getStatus());
         final String content = slurp ((InputStream) response.getEntity());
         assertTrue(Integer.parseInt(content)  >= 5);
 
+        webClient.reset();
+        Movie movie = webClient.path("/api/movies/1").get(Movie.class);
+        assertTrue(movie.getTitle().length() > 0);
 
     }
 
