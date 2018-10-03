@@ -16,8 +16,8 @@
  */
 package org.superbiz.moviefun.rest;
 
-import org.superbiz.moviefun.Movie;
-import org.superbiz.moviefun.MoviesBean;
+import org.superbiz.moviefun.movie.Movie;
+import org.superbiz.moviefun.service.MoviesService;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
@@ -34,7 +34,7 @@ public class MoviesResource {
     private static final Logger LOGGER = Logger.getLogger(MoviesResource.class.getName());
 
     @EJB
-    private MoviesBean service;
+    private MoviesService service;
 
 
     @GET
