@@ -16,105 +16,100 @@
  */
 package org.superbiz.moviefun;
 
+import com.github.javafaker.Faker;
+
 import javax.ejb.Lock;
 import javax.ejb.LockType;
 import javax.ejb.Singleton;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.EntityType;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Random;
 
 @Singleton
 @Lock(LockType.READ)
 public class MoviesBean {
 
-    @PersistenceContext(unitName = "movie-unit")
-    private EntityManager entityManager;
 
-    public Movie find(Long id) {
-        return entityManager.find(Movie.class, id);
+    public List<Movie> catalog;
+
+    public int id=0;
+
+    public List<Movie> getCatalog() {
+        return catalog;
     }
+
+    public MoviesBean() {
+        catalog = new ArrayList();
+        load();
+
+    }
+
 
     public Movie addMovie(Movie movie) {
-        entityManager.persist(movie);
+        this.id++;
+        movie.setId(this.id);
+        catalog.add(movie);
         return movie;
     }
 
-    public void editMovie(Movie movie) {
-        entityManager.merge(movie);
+
+    public List<Movie> getMovies(){
+        return catalog;
     }
+
 
     public void deleteMovie(long id) {
-        Movie movie = entityManager.find(Movie.class, id);
-        if (movie == null) {
-            throw new IllegalArgumentException("Movie " + id + " not found");
-        }
-        entityManager.remove(movie);
+        boolean b = catalog.removeIf(obj -> obj.getId() == id);
     }
 
-    public Movie addCommentToMovie(final Long id, final Comment comment) {
-        final Movie movie = entityManager.find(Movie.class, id);
-        if (movie == null) {
-            throw new IllegalArgumentException("Movie " + id + " not found");
+    public Movie find(Long id) {
+        for (Movie movie : catalog) {
+            if(movie.getId() == id){
+                return movie;
+            }
         }
-        entityManager.persist(comment);
-        movie.getComments().add(comment);
-        entityManager.merge(movie);
-        return movie;
+        return null;
     }
 
-    public Movie removeCommentToMovie(final Long id, final Comment comment) {
-        final Movie movie = entityManager.find(Movie.class, id);
-        if (movie == null) {
-            throw new IllegalArgumentException("Movie " + id + " not found");
-        }
-        movie.getComments().remove(comment);
-        entityManager.remove(comment);
-        entityManager.merge(movie);
-        return movie;
+
+    public void updateMovie(Long id, Movie newMovieData){
+        Movie oldMovieData = find(id);
+        if (newMovieData.getTitle() != null){ oldMovieData.setTitle(newMovieData.getTitle());}
+        if (newMovieData.getDirector() != null){ oldMovieData.setDirector(newMovieData.getDirector());}
+        if (newMovieData.getYear() != -1){ oldMovieData.setYear(newMovieData.getYear());}
+        if (newMovieData.getGenre() != null){ oldMovieData.setGenre(newMovieData.getGenre());}
+        if (newMovieData.getRating() != -1){ oldMovieData.setRating(newMovieData.getRating());}
+
     }
 
-    public List<Movie> getMovies(Integer firstResult, Integer maxResults, String field, String searchTerm) {
-        CriteriaBuilder qb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Movie> cq = qb.createQuery(Movie.class);
-        Root<Movie> root = cq.from(Movie.class);
-        EntityType<Movie> type = entityManager.getMetamodel().entity(Movie.class);
-        if (field != null && searchTerm != null && !"".equals(field.trim()) && !"".equals(searchTerm.trim())) {
-            Path<String> path = root.get(type.getDeclaredSingularAttribute(field.trim(), String.class));
-            Predicate condition = qb.like(path, "%" + searchTerm.trim() + "%");
-            cq.where(condition);
-        }
-        TypedQuery<Movie> q = entityManager.createQuery(cq);
-        if (maxResults != null) {
-            q.setMaxResults(maxResults);
-        }
-        if (firstResult != null) {
-            q.setFirstResult(firstResult);
-        }
-        return q.getResultList();
+
+
+    public int count(){
+        return catalog.size();
     }
 
-    public int count(String field, String searchTerm) {
-        CriteriaBuilder qb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Long> cq = qb.createQuery(Long.class);
-        Root<Movie> root = cq.from(Movie.class);
-        EntityType<Movie> type = entityManager.getMetamodel().entity(Movie.class);
-        cq.select(qb.count(root));
-        if (field != null && searchTerm != null && !"".equals(field.trim()) && !"".equals(searchTerm.trim())) {
-            Path<String> path = root.get(type.getDeclaredSingularAttribute(field.trim(), String.class));
-            Predicate condition = qb.like(path, "%" + searchTerm.trim() + "%");
-            cq.where(condition);
-        }
-        return entityManager.createQuery(cq).getSingleResult().intValue();
+    public void clear(){
+        catalog.clear();
     }
 
-    public void clean() {
-        entityManager.createQuery("delete from Movie").executeUpdate();
+    public void load() {
+        final Faker faker = new Faker(Locale.ENGLISH);
+        final Random random = new Random(System.nanoTime());
+
+        for (int i = 0 ; i < (5 + random.nextInt(20)) ; i++) {
+
+            addMovie(
+                new Movie(
+                        faker.book().title(),
+                        faker.book().author(),
+                        faker.book().genre(),
+                        random.nextInt(10),
+                        1960 + random.nextInt(50)
+                )
+            );
+        }
+
     }
+
 }
