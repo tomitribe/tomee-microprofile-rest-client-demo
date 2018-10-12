@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+       http://www.apache.org/licenses/LICENSE-2.0
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.superbiz</groupId>
+    <artifactId>tomee-microprofile-rest-client-demo</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <groupId>org.superbiz</groupId>
+  <artifactId>services</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <name>services</name>
+
+  <scm>
+    <connection>scm:git:git@github.com:eclipse/microprofile-rest-client.git</connection>
+    <developerConnection>scm:git:git@github.com:eclipse/microprofile-rest-client.git</developerConnection>
+    <url>scm:git:git@github.com:eclipse/microprofile-rest-client.git</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <tomee.version>7.1.0</tomee.version>
+    <version.shrinkwrap.resolver>2.0.0</version.shrinkwrap.resolver>
+  </properties>
+
+  <distributionManagement>
+    <repository>
+      <id>localhost</id>
+      <url>file://${basedir}/target/repo/</url>
+    </repository>
+    <snapshotRepository>
+      <id>localhost</id>
+      <url>file://${basedir}/target/snapshot-repo/</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+
+  <repositories>
+    <repository>
+      <id>apache.snapshots.https</id>
+      <name>Apache Development Snapshot Repository</name>
+      <url>https://repository.apache.org/content/repositories/snapshots</url>
+    </repository>
+    <repository>
+      <id>apache-m2-snapshot</id>
+      <name>Apache Snapshot Repository</name>
+      <url>https://repository.apache.org/content/groups/snapshots</url>
+    </repository>
+    <repository>
+      <id>tomitribe-public</id>
+      <name>Tomitribe Releases Public</name>
+      <url>https://repository.tomitribe.com/content/repositories/releases</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>apache.snapshots.https</id>
+      <name>Apache Development Snapshot Repository</name>
+      <url>https://repository.apache.org/content/repositories/snapshots</url>
+    </pluginRepository>
+    <pluginRepository>
+      <id>apache-m2-snapshot</id>
+      <name>Apache Snapshot Repository</name>
+      <url>https://repository.apache.org/content/groups/snapshots</url>
+    </pluginRepository>
+    <pluginRepository>
+      <id>tomitribe-public</id>
+      <name>Tomitribe Releases Public</name>
+      <url>https://repository.tomitribe.com/content/repositories/releases</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <profiles>
+    <profile>
+      <id>arquillian-tomee-embedded</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.tomee</groupId>
+          <artifactId>arquillian-tomee-embedded</artifactId>
+          <version>${tomee.version}</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.tomee</groupId>
+          <artifactId>tomee-embedded</artifactId>
+          <version>${tomee.version}</version>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+  </profiles>
+
+  <build>
+    <defaultGoal>install</defaultGoal>
+    <finalName>services</finalName>
+    <resources>
+      <resource>
+        <directory>src/main/java</directory>
+        <includes>
+          <include>**/*.java</include>
+        </includes>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <configuration>
+              <classifier>classes</classifier>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.18.1</version>
+        <configuration>
+          <reuseForks>false</reuseForks>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.5.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.tomee.maven</groupId>
+        <artifactId>tomee-maven-plugin</artifactId>
+        <version>${tomee.version}</version>
+        <configuration>
+          <tomeeClassifier>microprofile</tomeeClassifier>
+          <tomeeHttpPort>8181</tomeeHttpPort>
+          <args>-Xmx512m -XX:PermSize=256m</args>
+          <config>${project.basedir}/src/main/tomee/</config>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- Override dependency resolver with test version. This must go *BEFORE*
+        the Arquillian BOM. -->
+      <dependency>
+        <groupId>org.jboss.shrinkwrap.resolver</groupId>
+        <artifactId>shrinkwrap-resolver-bom</artifactId>
+        <version>${version.shrinkwrap.resolver}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+      <!-- Now pull in our server-based unit testing framework -->
+      <dependency>
+        <groupId>org.jboss.arquillian</groupId>
+        <artifactId>arquillian-bom</artifactId>
+        <version>1.0.3.Final</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.tomee</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>7.0-1</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.github.javafaker</groupId>
+      <artifactId>javafaker</artifactId>
+      <version>0.15</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.arquillian.junit</groupId>
+      <artifactId>arquillian-junit-container</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.shrinkwrap.resolver</groupId>
+      <artifactId>shrinkwrap-resolver-depchain</artifactId>
+      <type>pom</type>
+      <scope>test</scope>
+    </dependency>
+    <!-- to make sure the dependency is downloaded for the tomee maven plugin -->
+    <dependency>
+      <groupId>org.apache.tomee</groupId>
+      <artifactId>apache-tomee</artifactId>
+      <version>${tomee.version}</version>
+      <scope>test</scope>
+      <classifier>microprofile</classifier>
+      <type>zip</type>
+    </dependency>
+    <dependency>
+      <groupId>org.superbiz</groupId>
+      <artifactId>model</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-rt-rs-client</artifactId>
+      <version>3.3.0-SNAPSHOT</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>
