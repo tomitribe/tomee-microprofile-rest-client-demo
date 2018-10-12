@@ -17,7 +17,7 @@
 package org.superbiz.moviefun.service;
 
 import com.github.javafaker.Faker;
-import org.superbiz.moviefun.movie.Movie;
+import org.superbiz.model.Movie;
 
 import javax.ejb.Lock;
 import javax.ejb.LockType;
