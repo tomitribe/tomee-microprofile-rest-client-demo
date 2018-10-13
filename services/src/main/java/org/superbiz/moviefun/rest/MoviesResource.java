@@ -16,7 +16,7 @@
  */
 package org.superbiz.moviefun.rest;
 
-import org.superbiz.model.Movie;
+import org.superbiz.moviefun.model.Movie;
 import org.superbiz.moviefun.service.MoviesService;
 
 import javax.ejb.EJB;

@@ -46,12 +46,12 @@
     <orderEntry type="library" name="Maven: org.tomitribe:churchkey:0.7" level="project" />
     <orderEntry type="library" name="Maven: org.apache.geronimo.specs:geronimo-json_1.1_spec:1.1" level="project" />
     <orderEntry type="library" name="Maven: org.tomitribe:tomitribe-util:1.2.3" level="project" />
-    <orderEntry type="module" module-name="services" />
-    <orderEntry type="library" name="Maven: com.github.javafaker:javafaker:0.15" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.5" level="project" />
-    <orderEntry type="library" name="Maven: org.yaml:snakeyaml:android:1.20" level="project" />
-    <orderEntry type="library" name="Maven: com.github.mifmif:generex:1.0.2" level="project" />
-    <orderEntry type="library" name="Maven: dk.brics.automaton:automaton:1.11-8" level="project" />
+    <orderEntry type="module" module-name="services" scope="PROVIDED" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.github.javafaker:javafaker:0.15" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.commons:commons-lang3:3.5" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.yaml:snakeyaml:android:1.20" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.github.mifmif:generex:1.0.2" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: dk.brics.automaton:automaton:1.11-8" level="project" />
     <orderEntry type="module" module-name="model" />
   </component>
 </module>
