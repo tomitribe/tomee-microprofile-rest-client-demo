@@ -47,6 +47,7 @@ public class MoviesResource {
 
     @GET
     @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Movie find(@PathParam("id") Long id) {
         LOGGER.info("find: " + id);
         return service.find(id);
