@@ -30,18 +30,13 @@ import org.superbiz.moviefun.model.Movie;
 import org.superbiz.moviefun.rest.ApplicationConfig;
 import org.superbiz.moviefun.rest.MoviesResource;
 import org.superbiz.moviefun.service.MoviesService;
-
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.logging.Logger;
-
 import static org.junit.Assert.assertEquals;
 
 //https://jersey.github.io/documentation/latest/client.html
