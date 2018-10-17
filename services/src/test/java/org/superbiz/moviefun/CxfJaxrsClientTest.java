@@ -45,7 +45,7 @@ public class CxfJaxrsClientTest {
 
     private static final Logger LOGGER = Logger.getLogger(CxfJaxrsClientTest.class.getName());
 
-    @Deployment(testable = false)
+    @Deployment()
     public static WebArchive createDeployment() {
         final WebArchive webArchive = ShrinkWrap.create(WebArchive.class, "test.war")
                 .addClasses(Movie.class,  MoviesService.class)
@@ -56,14 +56,12 @@ public class CxfJaxrsClientTest {
         return webArchive;
     }
 
-    @ArquillianResource
-    private URL base;
 
 
 
     @Test
     public void Get() throws Exception{
-        WebClient webClient = WebClient.create(base.toExternalForm());
+        WebClient webClient = WebClient.create("http://localhost:4444/test");
 
         //GET
         webClient.reset();
@@ -78,7 +76,7 @@ public class CxfJaxrsClientTest {
 
     @Test
     public void Post() {
-        WebClient webClient = WebClient.create(base.toExternalForm());
+        WebClient webClient = WebClient.create("http://localhost:4444/test");
 
         //POST
         webClient.path("api/movies").type("application/json").accept("application/json");

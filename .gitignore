@@ -333,3 +333,6 @@ ASALocalRun/
 .vscode/
 .settings/
 target/
+.project
+.classpath
+.factorypath

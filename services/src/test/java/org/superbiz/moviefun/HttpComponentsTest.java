@@ -31,7 +31,7 @@ import static org.junit.Assert.assertEquals;
 public class HttpComponentsTest {
     private static final Logger LOGGER = Logger.getLogger(HttpComponentsTest.class.getName());
 
-    @Deployment(testable = false)
+    @Deployment()
     public static WebArchive createDeployment() {
         final WebArchive webArchive = ShrinkWrap.create(WebArchive.class, "test.war")
                 .addClasses(Movie.class,  MoviesService.class)
@@ -67,7 +67,7 @@ public class HttpComponentsTest {
     public void GetFluentAPI() throws Exception {
         String response = Request.Get(base.toExternalForm()+"api/movies/count/")
                 .execute().returnContent().asString();
-        LOGGER.info(response);
+        LOGGER.info("I found ["+response+"] movies.");
     }
 
 

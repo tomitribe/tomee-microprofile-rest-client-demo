@@ -35,7 +35,8 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Path("movies")
-@Produces({"application/json"})
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 @ApplicationScoped
 public class MoviesResource {
 
@@ -59,7 +60,7 @@ public class MoviesResource {
     }
 
     @POST
-    @Consumes("application/json")
+    @Consumes(MediaType.APPLICATION_JSON)
     public Movie addMovie(Movie movie) {
         service.addMovie(movie);
         return movie;
@@ -73,7 +74,7 @@ public class MoviesResource {
 
     @PUT
     @Path("{id}")
-    @Consumes("application/json")
+    @Consumes(MediaType.APPLICATION_JSON)
     public Movie updateMovie(@PathParam("id") long id, Movie movie) {
         service.updateMovie(id,movie);
         return service.find(id);
