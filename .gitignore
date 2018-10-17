@@ -333,3 +333,9 @@ ASALocalRun/
 .vscode/
 .settings/
 target/
+.project
+.classpath
+.factorypath
+client/client.iml
+model/model.iml
+services/services.iml
