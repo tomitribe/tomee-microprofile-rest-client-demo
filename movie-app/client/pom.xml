@@ -21,7 +21,7 @@
 
     <parent>
         <groupId>org.superbiz</groupId>
-        <artifactId>tomee-microprofile-rest-client-demo</artifactId>
+        <artifactId>movie-app</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
