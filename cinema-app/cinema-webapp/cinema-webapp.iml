@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="web" name="Web">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/src/main/webapp/WEB-INF/web.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
+        </webroots>
+        <sourceRoots>
+          <root url="file://$MODULE_DIR$/src/main/java" />
+        </sourceRoots>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_5" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/target/classes" />
+    <output-test url="file://$MODULE_DIR$/target/test-classes" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.tomee:javaee-api:8.0-SNAPSHOT" level="project" />
+    <orderEntry type="module" module-name="client" />
+    <orderEntry type="library" name="Maven: org.tomitribe.inget:inget-client-java:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: org.tomitribe.inget:inget-api:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.16.16" level="project" />
+    <orderEntry type="library" name="Maven: io.swagger.core.v3:swagger-annotations:2.0.0" level="project" />
+    <orderEntry type="library" name="Maven: javax.xml.bind:jaxb-api:2.2.7" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.xml.bind:jaxb-core:2.2.7" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.istack:istack-commons-runtime:2.16" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.xml.bind:jaxb-impl:2.2.7" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.xml.fastinfoset:FastInfoset:1.2.12" level="project" />
+    <orderEntry type="library" name="Maven: javax.xml.bind:jsr173_api:1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tomcat:tomcat-servlet-api:8.5.20" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.johnzon:johnzon-jaxrs:1.1.10" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.johnzon:johnzon-core:1.1.10" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.johnzon:johnzon-mapper:1.1.10" level="project" />
+    <orderEntry type="library" name="Maven: org.tomitribe:tomitribe-http-signatures:1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.tomitribe:churchkey:0.7" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.geronimo.specs:geronimo-json_1.1_spec:1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.tomitribe:tomitribe-util:1.2.3" level="project" />
+    <orderEntry type="module" module-name="model" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.tomee:javaee-api:8.0-SNAPSHOT" level="project" />
+  </component>
+</module>
