@@ -16,6 +16,6 @@ Navigate to `http://localhost:8181/moviefun/api/movies/`
 ## Run cinema web app
         Go to cinema-app/cinema-webapp
         mvn clean install tomee:run
-        Navigate to http://localhost:4444/cinema-webapp/api/cinema/movies
+Navigate to http://localhost:4444/cinema-webapp/api/cinema/movies
         
 
