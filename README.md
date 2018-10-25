@@ -1,8 +1,6 @@
 # tomee-microprofile-rest-client-demo
 Type-Safe Approach to Invoking RESTful Services with MicroProfile Rest Client on TomEE
 
-# To Do, General description of project structure.
-
 ## Build
         mvn clean install 
 
@@ -15,5 +13,9 @@ Type-Safe Approach to Invoking RESTful Services with MicroProfile Rest Client on
         mvn clean install -pl movie-app/services tomee:run
 Navigate to `http://localhost:8181/moviefun/api/movies/`
 
-## ToDo
-Instructions for to run movie-app/client and cinema-app
+## Run cinema web app
+        Go to cinema-app/cinema-webapp
+        mvn clean install tomee:run
+        Navigate to http://localhost:4444/cinema-webapp/api/cinema/movies
+        
+
